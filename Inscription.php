@@ -6,11 +6,16 @@ require_once "functions.php";
 $name = $email = $company = $telephone =  $password = $cpassword = "";
 $name_err = $password_err = $cpassword_err = "";
 
-
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
- 
+            
+            $name = ($_POST["name"]);
+            $email = ($_POST["email"]);
+            $company = ($_POST["company"]);
+            $telephone = ($_POST["telephone"]);
+            $password = ($_POST["password"]);
+            $cpassword = ($_POST["cpassword"]);
 
     if(empty(trim($_POST["name"]))){
         $name_err = "Please enter a name.";
@@ -22,15 +27,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         
         if($stmt = mysqli_prepare($con, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $name, $email,$company, $telephone, $password, $cpassword);
+            mysqli_stmt_bind_param($stmt, "s", $param_name, $param_email, $param_company, $param_telephone, $param_password, $param_cpassword);
             
             // Set parameters
             $name = trim($_POST["name"]);
-            $email = trim($_POST["email"]);
-            $company = trim($_POST["company"]);
-            $telephone =trim($_POST["telephone"]);
-            $password = trim($_POST["password"]);
-            $cpassword = trim($_POST["cpassword"]);
             
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
@@ -82,15 +82,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         if($stmt = mysqli_prepare($con, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "ss", $name, $email, $company, $telephone, $password, $cpassword);
+            mysqli_stmt_bind_param($stmt, "ss", $param_name, $param_email, $param_company, $param_telephone, $param_password, $param_cpassword);
             
             // Set parameters
-            $name = $name;
-            $email = $email;
-            $company = $company;
-            $telephone = $telephone;
-            $password = $password;
-            $cpassword = $cpassword;
+            $param_name = $name;
+            $param_email = $email;
+            $param_company = $company;
+            $param_telephone = $telephone;
+            $param_password = $password;
+            $param_cpassword = $cpassword;
             // $param_password = password_hash($password, PASSWORD_DEFAULT);
             
             // Attempt to execute the prepared statement
